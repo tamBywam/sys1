@@ -1,0 +1,10 @@
+#Zadanie 7. Korzystając z potoku wyświetl:
+#pierwsze 3
+#ostatnie 3
+#pliki i foldery z katalogu /home, które zaczynają się na m.
+
+ls /home | head -n 3
+ls /home | tail -n 3
+
+ls /home/m* | head -n 3
+ls /home/m* | tail -n 3

@@ -1,0 +1,39 @@
+#Zadanie 1. Wyświetl listę wszystkich procesów:
+#wraz z informacją jaki jest właściciel danego procesu.
+
+ps aux
+
+a – Wyświetl wszystkie użytkownika.
+u – Wyświetl informacje o użytkowniku.
+x – Wyświetl procesy działające bez terminala.
+
+#wraz z procesami, które wykonują się w innym terminalu.
+
+ps -eo pid,user,tty,stat,command
+
+Wyjaśnienie opcji:
+-e – Wyświetl wszystkie procesy.
+-o – Określa, jakie informacje mają być wyświetlone:
+pid – ID procesu.
+user – Nazwa użytkownika.
+tty – Terminal, z którym jest powiązany.
+stat – Status procesu.
+command – Komenda używana do uruchomienia procesu.
+
+#wraz z procesami, które wykonują się bez terminala (zamiast pliku do terminala zawierają ?).
+
+ps -eo pid,user,tty,stat,command | grep ' ? '
+
+Interpretacja:
+Procesy, które działają bez terminala, mają znak zapytania ? w kolumnie tty.
+
+#Dodatkowo zapoznaj się z działaniem interaktywnych narzędzi do uruchamiania procesów (polecenia tj. atop, htop, btop).
+
+top - Polecenie top wyświetla dynamiczną listę procesów w czasie rzeczywistym.
+
+htop - Interaktywna wersja top. Zapewnia bardziej przyjazny interfejs użytkownika i możliwość interakcji.
+
+atop - Monitoruje użycie zasobów systemowych przez różne procesy.
+
+btop - Bardziej nowoczesna i ładna alternatywa dla htop.
+

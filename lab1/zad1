@@ -1,0 +1,38 @@
+# Znajdź w swoim katalogu domowym i jego podkatalogach, pliki i katalogi o nazwie nowy.
+find ~ -name "nowy"
+
+# Znajdź w swoim katalogu domowym i jego podkatalogach, katalogi o nazwie Dokumenty.
+find ~ -type d -name "Dokumenty"
+
+# Znajdź w swoim katalogu domowym i jego podkatalogach, pliki zaczynające się na a lub o.
+find ~ -type f \( -name "a*" -o -name "o*" \)
+
+# Znajdź w swoim katalogu domowym i jego podkatalogach, pliki zaczynające się na a i kończą na o.
+find ~ -type f -name "a*o"
+
+# Znajdź w swoim katalogu domowym i jego podkatalogach, pliki zaczynające się na s i zawiera dokładnie 3 znaki.
+find ~ -type f -name "s??"
+
+# Znajdź w swoim katalogu domowym i jego podkatalogach, pliki, które w nazwie zawierają podsłowo prog, bez rozróżniania wielkości liter.
+find ~ -type f -iname "*prog*"
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, pliki, które w nazwie zawierają podsłowo conf.
+find ~ -maxdepth 1 -type f -name "*conf*"
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, katalogi, które są puste.
+find ~ -maxdepth 1 -type d -empty
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, pliki, które zostały zmienione 10 minut temu.
+find ~ -maxdepth 1 -type f -mmin -10
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, pliki, które zostały zmienione w przedziale od 10 minut do godziny.
+find ~ -maxdepth 1 -type f -mmin +10 -mmin -60
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, pliki, które mają 10 MB.
+find ~ -maxdepth 1 -type f -size 10M
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, pliki, które mają od 10 MB do 50 MB.
+find ~ -maxdepth 1 -type f -size +10M -size -50M
+
+# Znajdź w swoim katalogu domowym, bez podkatalogów, pliki i katalogi, które nie zawierają w nazwie podsłowa bug.
+find ~ -maxdepth 1 ! -name "*bug*"

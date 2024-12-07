@@ -1,0 +1,125 @@
+Zadanie 4. Przy pomocy skryptów utwórz symulator dwóch dźwigów, które przenoszą materiały budowlane z pierwszego miejsca do drugiego. 
+Pierwszy dźwig powinien przenosić z pierwszego miejsca do bufora pomocniczego, o ograniczonej pojemności, natomiast drugi dźwig pobierać materiał z bufora do drugiego miejsca.
+Symulator powinien składać się z:
+trzech folderów, które będą symulowały: pierwsze miejsce, drugie miejsce, bufor;
+plików, które będą symulowały materiał budowlany, które będą znajdywały się w pierwszym miejscu;
+trzech procesów, które będą symulowały: pierwszy dźwig, drugi dźwig i nadzorce dźwigów.
+Proces nadzorujący po otrzymaniu sygnału USR1 powinien utworzyć dwa procesy symulujące prace dźwigów oraz uruchomić je w tle, natomiast po otrzymaniu sygnału SIGINT, 
+zakończyć pracę dwóch utworzonych procesów i wyświetlić komunikat.
+Proces symulujący pracę pierwszego dźwigu powinien przenosić pojedynczo pliki z pierwszego folderu do folderu symulującego bufor, dopóki pierwszy folder nie będzie pusty. 
+Po przeniesieniu wszystkich plików powinien zakończyć swoje działanie zwracając liczbę przeniesionych plików. Należy też zadbać o to by nie przenosił plików, jeżeli bufor 
+przekroczy swoją pojemność (np. bufor może mieć co najwyżej trzy pliki).
+Proces symulujący pracę drugiego dźwigu powinien przenosić pojedynczo pliki z bufora do drugiego folderu o ile w buforze jest jakiś plik oraz zakończyć swoje działanie 
+jeżeli pierwszy "dźwig" zakończył pracę oraz bufor jest już pusty. Po zakończeniu pracy proces powinien zwrócić liczbę przeniesionych plików.
+Proces nadzorujący (o ile nie zostanie przerwany przez użytkownika) po rozpoczęciu działania, powinien nadzorować pracę dwóch dźwigów i wypisywać odpowiednie komunikaty 
+(odnośnie rozpoczęcia pracy dźwigu, zakończenia pracy dźwigu, liczby przeniesionych materiałów – dane pobrane od innych procesów). Dodatkowo może posłużyć do komunikacji 
+między procesami symulującymi pracę dźwigu oraz po zakończeniu ich pracy powinien zakończyć swoje działanie.
+Pamiętaj, że symulacja powinna zostać utworzona z dokładnie trzech procesów, które są odpowiednio zsynchronizowane oraz każdy z tych procesów powinien kończyć 
+swoje działanie w odpowiednim momencie.
+
+
+Stwórz odpowiednie katalogi w domowym katalogu użytkownika:
+
+mkdir -p ~/dzwigi/pierwsze_miejsce
+mkdir -p ~/dzwigi/bufor
+mkdir -p ~/dzwigi/drugie_miejsce
+
+Dodaj do folderu pierwsze_miejsce przykładowe pliki, które będą symulować materiały budowlane:
+
+touch ~/dzwigi/pierwsze_miejsce/material1.txt
+touch ~/dzwigi/pierwsze_miejsce/material2.txt
+touch ~/dzwigi/pierwsze_miejsce/material3.txt
+touch ~/dzwigi/pierwsze_miejsce/material4.txt
+
+Skrypt 1: nadzorca.sh
+
+#!/bin/bash
+
+PID1=0
+PID2=0
+
+# Funkcja do obsługi sygnału USR1
+start_dzwigi() {
+    echo "Rozpoczynanie pracy dwóch dźwigów..."
+    ./pierwszy_dzwig.sh &
+    PID1=$!
+    echo "Pierwszy dźwig uruchomiony, PID=$PID1"
+    ./drugi_dzwig.sh &
+    PID2=$!
+    echo "Drugi dźwig uruchomiony, PID=$PID2"
+}
+
+# Funkcja do obsługi sygnału SIGINT
+stop_dzwigi() {
+    echo "Zakończono nadzorowanie pracy dźwigów."
+    kill -SIGINT $PID1
+    kill -SIGINT $PID2
+    wait $PID1
+    wait $PID2
+    echo "Oba dźwigi zostały zatrzymane."
+    exit 0
+}
+
+# Trap na sygnały
+trap 'start_dzwigi' USR1
+trap 'stop_dzwigi' SIGINT
+
+echo "Nadzorca uruchomiony. Czekam na sygnały..."
+
+while true; do
+    sleep 1
+done
+
+Skrypt 2: pierwszy_dzwig.sh
+
+#!/bin/bash
+
+source_dir=~/dzwigi/pierwsze_miejsce
+buffer_dir=~/dzwigi/bufor
+moved_count=0
+
+while [ "$(ls -A $source_dir)" ]; do
+    if [ "$(ls -A $buffer_dir | wc -l)" -ge 3 ]; then
+        echo "Bufor pełny, zatrzymanie operacji."
+        sleep 1
+    else
+        file=$(ls | head -n 1)
+        mv "$source_dir/$file" "$buffer_dir/"
+        echo "Przeniesiono $file do bufora."
+        moved_count=$((moved_count + 1))
+    fi
+    sleep 1
+done
+
+echo "Pierwszy dźwig zakończył działanie. Przeniesiono $moved_count plików."
+exit 0
+
+Skrypt 3: drugi_dzwig.sh
+
+#!/bin/bash
+
+buffer_dir=~/dzwigi/bufor
+destination_dir=~/dzwigi/drugie_miejsce
+moved_count=0
+
+while [ "$(ls -A $buffer_dir)" ]; do
+    file=$(ls | head -n 1)
+    mv "$buffer_dir/$file" "$destination_dir/"
+    echo "Przeniesiono $file do drugiego miejsca."
+    moved_count=$((moved_count + 1))
+    sleep 1
+done
+
+echo "Drugi dźwig zakończył działanie. Przeniesiono $moved_count plików."
+exit 0
+
+
+Uruchom nadzorca.sh:
+chmod +x nadzorca.sh pierwszy_dzwig.sh drugi_dzwig.sh
+./nadzorca.sh
+
+W drugim terminalu wyślij sygnał USR1 do uruchomienia dźwigów:
+kill -s USR1 <PID_nadzorca>
+
+Aby zakończyć działanie dźwigów, wyślij sygnał SIGINT:
+kill -s SIGINT <PID_nadzorca>

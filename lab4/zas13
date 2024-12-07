@@ -1,0 +1,50 @@
+Zadanie 13. Napisz skrypt, który utworzy zmienną wyeksportowaną o nazwie test o wartości pobranej jako argument. 
+Uruchom skrypt w podpowłoce (czyli tak jak zawsze) i bieżącej powłoce (przy drugim sposobie nie umieszczaj exit 0 na końcu skryptu). 
+Sprawdź czy zmienna została utworzona po pierwszym i drugim uruchomieniu.
+
+#!/bin/bash
+
+# Sprawdzenie czy argument został przekazany
+if [ -z "$1" ]; then
+    echo "Błąd: Nie podano argumentu."
+    echo "Użycie: $0 <wartość>"
+    exit 1
+fi
+
+# Tworzenie i eksportowanie zmiennej
+export test="$1"
+echo "Zmienna test została utworzona z wartością: $test"
+
+
+2. Nadanie uprawnień do wykonania
+Po utworzeniu pliku export_variable.sh nadajmy mu uprawnienia wykonywania:
+chmod +x export_variable.sh
+
+3. Uruchamianie skryptu na dwa sposoby
+1. Uruchomienie w nowej podpowłoce
+./export_variable.sh "wartosc1"
+echo $test
+
+W tym przypadku zmienna test będzie istnieć tylko w kontekście podpowłoki, w której został uruchomiony skrypt. Będzie ona niewidoczna w bieżącej powłoce.
+
+2. Uruchamianie w bieżącej powłoce
+Tutaj należy użyć source lub .:
+source ./export_variable.sh "wartosc2"
+echo $test
+
+Lub alternatywnie:
+. ./export_variable.sh "wartosc2"
+echo $test
+W tym przypadku zmienna test zostanie wyeksportowana w bieżącej powłoce.
+
+4. Analiza wyników
+- Po pierwszym przypadku (uruchomienie w nowej podpowłoce):
+./export_variable.sh "wartosc1"
+echo $test
+
+Najprawdopodobniej echo $test zwróci pusty wynik, ponieważ zmienna została utworzona tylko w podpowłoce.
+
+- Po drugim przypadku (uruchomienie za pomocą source):
+source ./export_variable.sh "wartosc2"
+echo $test
+Wartość test zostanie poprawnie wyświetlona jako wartosc2, ponieważ source powoduje, że komendy są wykonane w bieżącej powłoce.

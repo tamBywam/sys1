@@ -1,0 +1,64 @@
+Zadanie 3. Napisz skrypt, który wyświetli informację odnośnie tego, czy argument jest ścieżką pliku, jeśli tak do jakiego rodzaju jest to plik i jakie prawa dostępu (odczyt, zapis, wykonanie) posiada użytkownik do pliku.
+
+#!/bin/bash
+
+# Sprawdzenie, czy podano dokładnie jeden argument
+if [ $# -ne 1 ]; then
+  echo "Błąd: Podaj dokładnie jeden argument."
+  exit 1
+fi
+
+# Pobranie ścieżki z argumentu
+sciezka=$1
+
+# Sprawdzenie, czy argument jest plikiem
+if [ -e "$sciezka" ]; then
+  # Sprawdzenie, czy to jest katalog
+  if [ -d "$sciezka" ]; then
+    echo "Podana ścieżka '$sciezka' jest katalogiem."
+  # Sprawdzenie, czy to jest plik regularny
+  elif [ -f "$sciezka" ]; then
+    echo "Podana ścieżka '$sciezka' jest plikiem regularnym."
+  # Sprawdzenie, czy to jest dowiązanie symboliczne
+  elif [ -L "$sciezka" ]; then
+    echo "Podana ścieżka '$sciezka' jest dowiązaniem symbolicznym."
+  # Sprawdzenie, czy to jest plik specjalny (np. urządzenie)
+  elif [ -b "$sciezka" ]; then
+    echo "Podana ścieżka '$sciezka' jest plikiem blokowym."
+  elif [ -c "$sciezka" ]; then
+    echo "Podana ścieżka '$sciezka' jest plikiem znakowym."
+  fi
+  
+  # Wyświetlenie praw dostępu do pliku
+  echo -n "Prawa dostępu do pliku: "
+  ls -l "$sciezka" | awk '{print $1}'
+  
+  # Wyświetlenie praw dostępu dla właściciela
+  prawa=$(ls -l "$sciezka" | awk '{print $1}')
+  if [[ ${prawa:1:1} == "r" ]]; then
+    echo "Właściciel ma prawo do odczytu."
+  else
+    echo "Właściciel nie ma prawa do odczytu."
+  fi
+  if [[ ${prawa:2:1} == "w" ]]; then
+    echo "Właściciel ma prawo do zapisu."
+  else
+    echo "Właściciel nie ma prawa do zapisu."
+  fi
+  if [[ ${prawa:3:1} == "x" ]]; then
+    echo "Właściciel ma prawo do wykonania."
+  else
+    echo "Właściciel nie ma prawa do wykonania."
+  fi
+else
+  echo "Podana ścieżka '$sciezka' nie istnieje."
+  exit 1
+fi
+
+
+Zapisz skrypt do pliku, np. sprawdz_sciezke.sh.
+Nadaj mu prawa do wykonania:
+chmod +x sprawdz_sciezke.sh
+
+Uruchom skrypt, przekazując ścieżkę jako argument:
+./sprawdz_sciezke.sh /path/to/file_or_directory

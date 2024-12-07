@@ -1,0 +1,35 @@
+#Zadanie 3. Zapoznaj się z możliwością tworzenia dowiązań twardych, np. możesz utworzyć plik aaa.txt i utworzyć do niego dowiązanie twarde bbb.txt.
+touch aaa.txt
+ln aaa.txt bbb.txt
+ls -l
+
+#Sprawdź:
+#jakiego rodzaju jest dowiązanie twarde (ls -l).
+Rodzaj: Dowiązanie twarde wygląda jak zwykły plik, ponieważ oba pliki odwołują się do tego samego i-węzła (inode).
+
+#czy dowiązanie twarde można stworzyć dla pliku i katalogu.
+ln plik1.txt link_twardy.txt
+Dla katalogów: Nie, system plików nie pozwala na tworzenie dowiązań twardych dla katalogów w standardowych konfiguracjach, aby uniknąć problemów z cyklicznymi strukturami katalogów.
+
+#jaka jest liczba dowiązań dla pliku.
+ls -l
+Oznacza to, że istnieją 2 dowiązania do tego pliku (oryginalny plik i dowiązanie twarde).
+
+#czy zmiana zawartości jednego pliku będzie widoczna dla drugiego.
+echo "Test zawartości" > aaa.txt
+cat bbb.txt
+Efekt: Zmiana zawartości jednego pliku jest natychmiast widoczna w drugim, ponieważ oba pliki odwołują się do tego samego i-węzła (inode).
+
+#czy zmiana praw dostępu jednego pliku będzie widoczna dla drugiego.
+chmod 600 aaa.txt
+ls -l
+Efekt: Zmiana praw dostępu jednego pliku jest widoczna w drugim, ponieważ oba pliki korzystają z tych samych metadanych przechowywanych w i-węźle.
+
+#czy usunięcie jednego pliku usuwa drugi.
+rm aaa.txt
+ls -l
+fekt: Usunięcie jednego pliku nie wpływa na drugi. Dowiązanie twarde nie jest "kopią" pliku, lecz alternatywną nazwą dla tych samych danych. 
+Plik zostanie całkowicie usunięty dopiero wtedy, gdy liczba dowiązań spadnie do 0.
+
+#Zastanów się jakie zastosowanie ma dowiązanie trwałe.
+Zarządzanie danymi, backupy, Redukcja miejsca, dostepność danych, itp.

@@ -1,0 +1,12 @@
+Zadanie 1. Wypróbuj (dla użytkownika) i wyjaśnij zasadę działania praw dostępu odczytu (r), zapisu (w) i wykonania (x) nadanych do pliku oraz do katalogu. Sprawdź, które z nich powodują, że nie można usunąć pliku/katalogu oraz wyjaśnij różnicę działania praw dostępu.
+
+r (odczyt): pozwala na odczyt pliku lub listowanie katalogu.
+w (zapis): pozwala na modyfikację pliku lub dodawanie/usuwanie plików w katalogu.
+x (wykonanie): pozwala na wykonanie pliku lub wejście do katalogu.
+Różnice między plikiem a katalogiem:
+Plik:
+Aby usunąć plik, potrzeba prawa zapisu (w).
+Prawo wykonania (x) jest potrzebne tylko do uruchomienia pliku.
+Katalog:
+Aby usunąć katalog, potrzeba zarówno prawa zapisu (w), jak i wykonania (x).
+Prawo wykonania (x) umożliwia wejście do katalogu.

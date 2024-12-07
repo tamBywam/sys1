@@ -1,0 +1,47 @@
+Zadanie 12. Napisz skrypt, który będzie tworzył archiwum w następujący sposób:
+przeszuka folder o nazwie podanej jako argument i jego podkatalogi oraz znajdzie pliki *.txt.
+umieści znalezione pliki *.txt w archiwum (*.tar, albo *.zip) o nazwie użytkownik_backup_data 
+(gdzie użytkownik to nazwa aktualnego użytkownika, natomiast data to aktualna data), dane na temat użytkownika i daty, 
+powinny zostać pobrane odpowiednim poleceniem, natomiast archiwum powinno zostać umieszczone w folderze ~/backups.
+
+#!/bin/bash
+
+# Sprawdzanie, czy podany został katalog jako argument
+if [ -z "$1" ]; then
+    echo "Błąd: Nie podano katalogu jako argument."
+    echo "Użycie: $0 <ścieżka_do_katalogu>"
+    exit 1
+fi
+
+# Pobranie ścieżki katalogu z argumentu
+SEARCH_DIR="$1"
+
+# Pobranie aktualnego użytkownika i daty w formacie RRRR-MM-DD
+USERNAME=$(whoami)
+CURRENT_DATE=$(date +%F)
+
+# Utworzenie katalogu backups, jeśli jeszcze nie istnieje
+BACKUP_DIR="$HOME/backups"
+mkdir -p "$BACKUP_DIR"
+
+# Tworzenie nazwy archiwum
+ARCHIVE_NAME="${USERNAME}_backup_${CURRENT_DATE}.tar.gz"
+ARCHIVE_PATH="${BACKUP_DIR}/${ARCHIVE_NAME}"
+
+# Znalezienie wszystkich plików *.txt w podanym katalogu oraz utworzenie archiwum
+echo "Tworzenie archiwum z plików *.txt z katalogu: $SEARCH_DIR"
+find "$SEARCH_DIR" -type f -name "*.txt" | tar -czvf "$ARCHIVE_PATH" -T -
+
+# Informacja o zakończeniu operacji
+if [ $? -eq 0 ]; then
+    echo "Archiwum zostało utworzone: $ARCHIVE_PATH"
+else
+    echo "Błąd podczas tworzenia archiwum."
+fi
+
+
+1. Nadaj uprawnienia wykonywania:
+chmod +x create_backup.sh
+
+2. Uruchom skrypt z podaniem ścieżki do katalogu:
+./create_backup.sh /ścieżka/do/katalogu

@@ -1,0 +1,30 @@
+Zadanie 12. Wykonaj (po kolei) poniższe komendy:
+    echo "123456789" > liczby.txt
+    #Tworzy plik liczby.txt (lub nadpisuje go, jeśli już istnieje).
+    #Wpisuje do pliku tekst 123456789.
+    
+    exec 3<> liczby.txt
+    #Otwiera plik liczby.txt do odczytu i zapisu (tryb <>) i przypisuje go do deskryptora pliku 3.
+    #Deskryptor 3 to alternatywne "okno" na pracę z plikiem, zamiast używania domyślnych deskryptorów (0 dla wejścia, 1 dla wyjścia, 2 dla błędów).
+    
+    read -n 4 <&3
+    #Czyta 4 znaki (opcja -n 4) z deskryptora 3 i zapisuje je do zmiennej domyślnej REPLY.
+    #Deskryptor <&3 oznacza, że dane są czytane z pliku przypisanego do deskryptora 3.
+    #Zawartość zmiennej REPLY: 1234
+    #Po wykonaniu, wskaźnik odczytu/zapisu w pliku przesuwa się o 4 znaki, czyli na pozycję po 1234 (teraz wskaźnik jest przed 5).
+    
+    echo -n "abc" >&3
+    #Zapisuje tekst abc bez nowej linii (opcja -n) do pliku przez deskryptor 3.
+    #Tekst zostanie zapisany od bieżącej pozycji wskaźnika odczytu/zapisu (po 1234).
+    #Efekt w pliku:
+    #Zawartość liczby.txt zmienia się na: 1234abc89
+    
+    exec 3>&-
+    #Zamyka deskryptor 3, kończąc dostęp do pliku przez ten deskryptor.
+    #Plik pozostaje nienaruszony, ale deskryptor 3 nie może być dalej używany w bieżącej sesji.
+
+Zobacz zawartość pliku liczby.txt oraz zastanów się jak działa każde z powyższych poleceń.
+
+Zawartość pliku liczby.txt po wszystkich operacjach: 1234abc89
+
+

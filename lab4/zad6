@@ -1,0 +1,28 @@
+Zadanie 6. Napisz skrypt, który będzie zawierał funkcję wyświetlającą odwrócony napis, który zostanie pobrany jako argument. Przykładowo napis kot powinien zostać wyświetlony jako tok.
+
+#!/bin/bash
+
+# Funkcja odwracająca napis
+odwroc_napis() {
+  # Pobranie napisu jako argument funkcji
+  napis="$1"
+  
+  # Odwrócenie napisu za pomocą komendy rev
+  echo "$napis" | rev
+}
+
+# Sprawdzenie, czy przekazano argument
+if [ $# -eq 0 ]; then
+  echo "Nie podano napisu do odwrócenia!"
+  exit 1
+fi
+
+# Wywołanie funkcji z pierwszym argumentem jako parametrem
+odwroc_napis "$1"
+
+Zapisz skrypt do pliku, np. odwroc_napis.sh.
+Nadaj mu prawa do wykonania:
+chmod +x odwroc_napis.sh
+
+Uruchom skrypt z napisem jako argument:
+./odwroc_napis.sh kot

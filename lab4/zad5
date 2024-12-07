@@ -1,0 +1,27 @@
+Zadanie 5. Napisz skrypt, który wyświetli wszystkie pobrane argumenty w odwrotnej kolejności, np. argumenty 1 2 3, powinny zostać wyświetlone jako 3 2 1. Wykorzystaj tablicę.
+
+#!/bin/bash
+
+# Sprawdzamy, czy zostały przekazane argumenty
+if [ $# -eq 0 ]; then
+  echo "Brak argumentów!"
+  exit 1
+fi
+
+# Zapisywanie argumentów do tablicy
+arguments=("$@")
+
+# Wyświetlanie argumentów w odwrotnej kolejności
+for (( i=${#arguments[@]}-1; i>=0; i-- )); do
+  echo -n "${arguments[i]} "
+done
+
+# Nowa linia na końcu
+echo
+
+Zapisz skrypt do pliku, np. odwrotna_kolejnosc.sh.
+Nadaj mu prawa do wykonania:
+chmod +x odwrotna_kolejnosc.sh
+
+Uruchom skrypt z argumentami:
+./odwrotna_kolejnosc.sh 1 2 3

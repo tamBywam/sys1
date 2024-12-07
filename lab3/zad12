@@ -1,0 +1,32 @@
+#Zadanie 12. Zapoznaj się z możliwością uruchomienia plików binarnych w dowolnym miejscu.
+#Przykładowo możesz dokonać konfiguracji takiej, że plik example, który można uruchomić poleceniem: ./example, będzie można uruchomić poleceniem: example, z dowolnej lokalizacji.
+#Podpowiedź: Wykorzystaj plik ~/.bashrc i odpowiednie zmienne środowiskowe.
+
+Aby umożliwić uruchamianie plików binarnych w dowolnym miejscu (bez potrzeby poprzedzania ich ścieżką ./), musisz dodać katalog, w którym znajduje się ten plik, do zmiennej środowiskowej $PATH. Dzięki temu system będzie w stanie znaleźć plik wykonywalny, niezależnie od tego, w którym katalogu się znajdujesz.
+
+Krok 1: Sprawdzenie pliku wykonywalnego
+Załóżmy, że masz plik wykonywalny o nazwie example. Przypuśćmy, że plik ten znajduje się w katalogu /home/username/bin/. Chcesz, aby plik example był dostępny do uruchomienia z dowolnego miejsca w systemie.
+Krok 2: Modyfikacja zmiennej PATH
+Aby plik example można było uruchomić bez podania pełnej ścieżki (./example), musisz dodać katalog /home/username/bin/ do zmiennej środowiskowej $PATH.
+
+a) Edytowanie pliku ~/.bashrc
+Otwórz plik ~/.bashrc w edytorze tekstu:
+nano ~/.bashrc
+Dodaj poniższą linię na końcu pliku, aby dodać katalog do zmiennej $PATH:
+export PATH=$PATH:/home/username/bin
+Zmienna $PATH zawiera listę katalogów, w których system szuka plików wykonywalnych. Dodanie /home/username/bin oznacza, że system będzie również szukać plików wykonywalnych w tym katalogu.
+
+b) Zastosowanie zmian
+Aby zmiany zaczęły obowiązywać w bieżącej sesji, wykonaj polecenie:
+source ~/.bashrc
+Teraz katalog /home/username/bin/ będzie dodany do zmiennej $PATH, a system będzie mógł znaleźć plik example w tym katalogu.
+
+Krok 3: Uruchamianie pliku wykonywalnego
+Przejdź do dowolnego katalogu i spróbuj uruchomić plik example bez podawania pełnej ścieżki. Na przykład:
+example
+Jeśli wszystko zostało poprawnie skonfigurowane, plik example uruchomi się bez konieczności podawania ścieżki (./example).
+
+Krok 4: Sprawdzanie dostępnych katalogów w $PATH
+Aby upewnić się, że katalog został dodany do zmiennej $PATH, możesz wyświetlić jej zawartość:
+echo $PATH
+Powinieneś zobaczyć katalog /home/username/bin wśród innych katalogów wymienionych w zmiennej.

@@ -1,0 +1,12 @@
+Zadanie 3. Przeczytaj opis polecenia umask (komenda man). Odpowiedz akie będą prawa dostępu dla nowo utworzonego pliku oraz katalogu, przy użyciu maski:
+022
+666
+
+Umask 022:
+
+Plik: rw-r--r-- (644)
+Katalog: rwxr-xr-x (755)
+Umask 666:
+
+Plik: rw------- (600)
+Katalog: --x--x--x (111)

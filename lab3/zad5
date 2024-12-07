@@ -1,0 +1,42 @@
+#Zadanie 5. Stwórz potok nazwany o dowolnej nazwie.
+mkfifo moj_potok
+ls -l
+
+#Sprawdź:
+#jakiego rodzaju jest potok nazwany (ls -l).
+Rodzaj: Potok nazwany jest oznaczony literą p na początku listingu (p od "pipe").
+
+#co spowoduje przekierowanie jednego wyjścia do potoku nazwanego, a następnie wyświetlenie jego zawartości w innym terminalu.
+W terminalu A: Przekieruj wyjście do potoku:
+echo "Wiadomość z terminala A" > moj_potok
+
+W terminalu B: Wyświetl zawartość potoku:
+cat < moj_potok
+
+Efekt: Zawartość potoku ("Wiadomość z terminala A") pojawi się w terminalu B. Potok działa jako tymczasowy bufor między procesami.
+
+#co spowoduje przekierowanie dwóch lub więcej wyjść do potoku nazwanego, a następnie wyświetlenie jego zawartości w innym terminalu.
+W terminalu A: Przekieruj dwa różne procesy do potoku:
+echo "Proces 1" > moj_potok &
+echo "Proces 2" > moj_potok &
+
+W terminalu B: Wyświetl zawartość potoku:
+cat < moj_potok
+
+Efekt:
+Zawartość potoku zostanie odczytana, ale kolejność wiadomości może być różna (w zależności od szybkości procesów), np.: "Proces 2" "Proces 1".
+Jeśli procesy próbują pisać jednocześnie, mogą się blokować, ponieważ potok działa jak kolejka FIFO.
+
+#co spowoduje początkowe wyświetlenie zawartości potoku nazwanego, a następnie przekierowanie do niego zawartości.
+W terminalu A: Spróbuj odczytać zawartość potoku zanim coś zostanie do niego zapisane:
+cat < moj_potok
+
+W terminalu B: Przekieruj coś do potoku:
+echo "Dane po odczycie" > moj_potok
+
+Efekt:
+Terminal A czeka na dane (blokuje się), dopóki proces w terminalu B nie zapisze czegoś do potoku.
+Po zapisaniu danych przez terminal B, zawartość zostanie natychmiast wyświetlona w terminalu A.
+
+#Zastanów się jakie zastosowanie mają potoki nazwane.
+Komunikacja między procesami, Implementacja kolejki danych, Rozdzielenie odpowiedzialności, Skrócenie czasu przetwarzania, Debugowanie i testowanie:

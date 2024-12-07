@@ -1,0 +1,21 @@
+Zadanie 8. Napisz skrypt, który wyliczy średnią zaokrąglaną, do części całkowitej w dół, z dowolnej liczby podanych argumentów. Rozwiąż to zadanie bez korzystania z instrukcji sterujących.
+
+#!/bin/bash
+
+# Obliczamy sumę wszystkich argumentów
+suma=$(echo "$@" | tr ' ' '+' | bc)
+
+# Liczba argumentów
+ilosc_argumentow=$#
+
+# Obliczamy średnią (całkowitą część w dół za pomocą dzielenia arytmetycznego)
+srednia=$((suma / ilosc_argumentow))
+
+# Wyświetlamy wynik
+echo "$srednia"
+
+Nadaj uprawnienia do wykonania:
+chmod +x srednia.sh
+
+Uruchom z argumentami:
+./srednia.sh 4 5 8 3 6

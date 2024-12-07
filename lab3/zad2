@@ -1,0 +1,23 @@
+#Zadanie 2. Znajdź plik, który znajduje się w folderze /dev/null.
+
+
+#Sprawdź:
+#jakiego rodzaju jest ten plik i jakie ma prawa dostępu (ls -l).
+ls -l /dev/null
+#Rodzaj pliku: /dev/null jest specjalnym plikiem znakowym, oznaczonym literą c na początku listingu ls -l.
+
+#co się stanie, gdy przekierujesz coś do tego pliku.
+echo "To jest test" > /dev/null
+#Efekt: Nic się nie stanie — dane zostaną usunięte i nie będą zapisane nigdzie.
+
+#co się stanie, gdy otworzysz w edytorze ten plik, zmienisz zawartość i zapiszesz.
+nano /dev/null
+#Efekt: Nie możesz zmienić zawartości /dev/null. Nawet jeśli zapiszesz w edytorze, plik pozostanie pusty.
+
+#jaki rozmiar będzie miał plik, gdy go przekopiujesz do swojego katalogu domowego.
+cp /dev/null ~/null_copy
+ls -l ~/null_copy
+#Efekt: Kopia pliku /dev/null będzie miała rozmiar 0 bajtów, ponieważ nie zawiera żadnych rzeczywistych danych.
+
+#Zastanów się jakie zastosowanie plik /dev/null.
+Ignorowanie wyjścia lub błędów, przekierowywanie wyjścia, czyszczenie plików, itp.

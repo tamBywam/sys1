@@ -1,0 +1,58 @@
+Zadanie 3. Utwórz trzy skrypty. Pierwszy:
+
+#!/bin/bash
+
+trap ./napis.sh USR1
+trap ./koniec.sh USR2
+while true
+do
+ sleep 5
+done
+exit 0
+
+Drugi powinien wyświetlić dowolny napis, a trzeci przerwać (zabić) proces skryptu. Uruchom pierwszy skrypt. 
+Następnie w drugim terminalu prześlij do procesu uruchamiającego skrypt sygnał USR1 oraz sprawdź co zostanie wyświetlone w pierwszym terminalu. 
+Następnie prześlij sygnał USR2.
+
+Drugi skrypt napis.sh:
+
+#!/bin/bash
+
+echo "Otrzymano sygnał USR1 - Wyświetlam komunikat"
+
+Trzeci skrypt koniec.sh:
+
+#!/bin/bash
+
+echo "Otrzymano sygnał USR2 - Zakończono działanie"
+exit 0
+
+
+1. Nadaj uprawnienia do wykonania skryptów:
+chmod +x main.sh
+chmod +x napis.sh
+chmod +x koniec.sh
+
+2. Uruchom pierwszy skrypt w pierwszym terminalu:
+./main.sh
+
+3. W drugim terminalu wysyłaj sygnały:
+Wysyłanie sygnału USR1:
+Aby wywołać drugi skrypt (napis.sh) za pomocą sygnału USR1, użyj polecenia:
+kill -s USR1 <PID>
+
+Podmień <PID> na identyfikator procesu pierwszego skryptu, który możesz uzyskać za pomocą polecenia ps. Na przykład:
+ps aux | grep main.sh
+
+Znajdź PID procesu main.sh. Powiedzmy, że jest to 12345, wtedy:
+kill -s USR1 12345
+
+Po wykonaniu tego polecenia w pierwszym terminalu powinien pojawić się komunikat z napis.sh:
+Otrzymano sygnał USR1 - Wyświetlam komunikat
+
+Wysyłanie sygnału USR2:
+Aby zakończyć skrypt za pomocą sygnału USR2, użyj podobnego polecenia:
+kill -s USR2 12345
+
+Po wysłaniu tego sygnału, w pierwszym terminalu powinien pojawić się komunikat:
+Otrzymano sygnał USR2 - Zakończono działanie

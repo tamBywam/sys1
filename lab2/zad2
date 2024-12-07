@@ -1,0 +1,79 @@
+#Zadanie 2. Wykonaj poniższe czynności w katalogu /tmp.
+#Utwórz w swoim katalogu domowym katalog o nazwie folderA, a następnie w folderA, katalog o nazwie folderB.
+#przejdź do folderB i odbierz wszystkie prawa dostępu bieżącego katalogu, następnie, będąc w katalogu folderB, 
+#sprawdź czy możliwa jest modyfikacja praw dostępu oraz przejście do katalogu nadrzędnego folderA.
+#przywróć katalogowi folderB wszystkie prawa dostępu dla właścicielowi oraz odbierz wszelkie prawa do katalogu 
+#folderA. Z poziomu swojego katalogu domowego sprawdź czy możliwe jest bezpośrednie przejście do katalogu folderA/folderB.
+
+# Utworzenie katalogów
+mkdir -p ~/folderA/folderB
+
+# Zmiana na folderB
+cd ~/folderA/folderB
+
+# Remove all permissions for the current directory
+chmod 000 .
+
+# Check if modification of permissions is possible
+chmod 700 . 2>/dev/null && echo "Permissions can be modified" || echo "Permissions cannot be modified"
+
+# Check if changing to parent directory is possible
+cd .. 2>/dev/null && echo "Can change to parent directory" || echo "Cannot change to parent directory"
+
+# Restore all permissions for the owner to folderB
+chmod 700 ~/folderA/folderB
+
+# Remove all permissions for folderA
+chmod 000 ~/folderA
+
+# Check if direct access to folderA/folderB is possible
+cd ~/folderA/folderB 2>/dev/null && echo "Can access folderA/folderB" || echo "Cannot access folderA/folderB"
+
+#Przejdź do katalogu domowego:
+cd ~
+
+#Utwórz katalog folderA:
+mkdir folderA
+
+#Wejdź do katalogu folderA:
+cd folderA
+
+#Utwórz katalog folderB w katalogu folderA:
+mkdir folderB
+
+#2. Przejdź do katalogu folderB i odbierz wszystkie prawa dostępu
+#Przejdź do katalogu folderB:
+cd folderB
+
+#Odbierz wszystkie prawa dostępu dla katalogu folderB:
+chmod 000 folderB
+
+#Teraz, katalog folderB nie ma żadnych praw dostępu, ani dla właściciela, ani dla grupy, ani dla innych.
+
+#3. Sprawdź, czy możliwa jest modyfikacja praw dostępu oraz przejście do katalogu nadrzędnego (folderA)
+#Sprawdź prawa dostępu do katalogu folderB:
+ls -ld folderB
+
+#Spróbuj modyfikować prawa dostępu do katalogu folderB:
+chmod 755 folderB
+
+#To polecenie nie powinno się udać, ponieważ nie masz żadnych praw do katalogu (chmod nie będzie mogło zmienić praw w katalogu, w którym nie masz uprawnień).
+
+#Spróbuj przejść do katalogu nadrzędnego folderA:
+cd ..
+
+#Komenda ta również się nie powiedzie, ponieważ nie masz uprawnień do wejścia do katalogu folderB.
+
+#4. Przywróć prawa dostępu do katalogu folderB oraz odbierz wszystkie prawa dostępu do folderA
+#Przywróć pełne prawa dostępu dla właściciela katalogu folderB:
+chmod 700 folderB
+
+#Odbierz wszystkie prawa dostępu do katalogu folderA:
+cd ..
+chmod 000 folderA
+
+#5. Sprawdź, czy możliwe jest bezpośrednie przejście do katalogu folderA/folderB z katalogu domowego
+#Spróbuj przejść do katalogu folderA/folderB z katalogu domowego:
+cd ~/folderA/folderB
+
+#Przejście to się nie uda, ponieważ nie masz żadnych praw dostępu do katalogu folderA (brak prawa do wykonania w katalogu folderA).

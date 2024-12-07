@@ -1,0 +1,37 @@
+#Zadanie 4. Zapoznaj się z możliwością tworzenia dowiązań symbolicznych, np. możesz utworzyć plik aaa.txt i utworzyć do niego dowiązanie symboliczne bbb.txt.
+touch aaa.txt
+ln -s aaa.txt bbb.txt
+ls -l
+
+#Sprawdź:
+#jakiego rodzaju jest dowiązanie symboliczne (ls -l).
+Rodzaj: Dowiązanie symboliczne oznaczone jest literą l na początku listingu (l od "link").
+
+#czy dowiązanie symboliczne można stworzyć dla pliku i katalogu.
+Dla plików: Tak, dowiązania symboliczne można tworzyć dla plików:
+ln -s plik1.txt link_symboliczny.txt
+Dla katalogów: Tak, dowiązania symboliczne można tworzyć również dla katalogów:
+ln -s katalog katalog_link
+
+#jaka jest liczba dowiązań dla pliku/katalogu.
+ls -l
+
+#czy zmiana zawartości jednego pliku/katalogu będzie widoczna dla drugiego.
+echo "Test zawartości" > bbb.txt
+cat aaa.txt
+Efekt: Zmiana zawartości dowiązania symbolicznego jest widoczna w pliku docelowym, ponieważ symlink wskazuje na ten sam plik.
+
+#czy zmiana praw dostępu jednego pliku/katalogu będzie widoczna dla drugiego.
+chmod 600 bbb.txt
+ls -l aaa.txt bbb.txt
+Efekt: Zmiana praw dostępu dotyczy pliku docelowego (aaa.txt), ponieważ symlink sam w sobie nie przechowuje informacji o prawach dostępu — jedynie wskazuje na plik docelowy.
+
+#czy usunięcie jednego pliku/katalogu usuwa drugi.
+rm aaa.txt
+ls -l
+Efekt:
+Usunięcie pliku docelowego (aaa.txt): Dowiązanie symboliczne (bbb.txt) stanie się "martwe" i będzie wskazywać na nieistniejący plik (oznaczone czerwonym kolorem w ls, w zależności od konfiguracji terminala).
+Usunięcie dowiązania symbolicznego (bbb.txt): Plik docelowy (aaa.txt) pozostaje nienaruszony.
+
+#Zastanów się jakie zastosowanie ma dowiązanie symboliczne.
+Wskazywanie na różne lokalizacje umożliwiają odwoływanie się do plików lub katalogów w innej lokalizacji w systemie, tworzenia aliasów, Łatwiejsza aktualizacja ścieżek, Ułatwienie w backupach, Zarządzanie zależnościami w systemach programistycznych

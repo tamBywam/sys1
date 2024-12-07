@@ -1,0 +1,37 @@
+#Zadanie 6. Stwórz gniazdo o dowolnej nazwie.
+socket_name="moje_gniazdo"
+rm -f $socket_name
+socat -d -d UNIX-LISTEN:$socket_name STDOUT
+
+Następnie w innym terminalu, połącz się z gniazdem:
+echo "Test gniazda" | socat - UNIX-CONNECT:$socket_name
+
+#Sprawdź:
+#jakiego rodzaju jest gniazdo (ls -l).
+Rodzaj: Gniazdo jest oznaczone literą s na początku listingu (s od "socket").
+
+#w jaki sposób nasłuchać i wysłać dane poprzez gniazdo.
+Uruchom nasłuch w gnieździe:
+socat -d -d UNIX-LISTEN:$socket_name STDOUT
+
+Wyślij dane do gniazda (w innym terminalu):
+echo "Wiadomość testowa" | socat - UNIX-CONNECT:$socket_name
+
+Efekt: W terminalu nasłuchującym (socat UNIX-LISTEN), pojawi się tekst: Wiadomość testowa.
+
+#czy można wysłać dane więcej niż jeden raz (np. z innego terminala).
+Tak, można wysłać dane do gniazda wielokrotnie. Każdy proces klienta (w nowym terminalu) może połączyć się z gniazdem i wysłać dane.
+Przykład:
+Terminal A (nasłuch):
+socat -d -d UNIX-LISTEN:$socket_name STDOUT
+
+Terminal B (klient 1):
+echo "Dane od klienta 1" | socat - UNIX-CONNECT:$socket_name
+
+Terminal C (klient 2):
+echo "Dane od klienta 2" | socat - UNIX-CONNECT:$socket_name
+
+Efekt: Terminal A wyświetli dane od obu klientów w kolejności ich przesłania.
+
+#Zastanów się jakie zastosowanie mają gniazda.
+Komunikacja między procesami lokalnie, Implementacja serwerów i klientów, Dostęp do usług systemowych, Debugowanie aplikacji sieciowych, Efektywność i elastyczność:

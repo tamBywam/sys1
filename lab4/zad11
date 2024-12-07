@@ -1,0 +1,72 @@
+Zadanie 11. Utwórz dwa skrypty oraz potok nazwany (FIFO).
+Pierwszy skrypt powinien odpowiadać za rolę "serwera", który nadsłuchuje utworzony plik FIFO i po otrzymaniu słowa i ścieżki do potoku nazwanego klienta, 
+wykonuje obliczenia i wysyła do pliku FIFO klienta informacje, odnośnie tego ile samogłosek zawiera słowo (skrypt powinien działać w nieskończonej pętli).
+Serwer (serwer.sh)
+
+#!/bin/bash
+
+# Utworzenie potoku nazwanego (FIFO) o nazwie serwer_fifo
+FIFO_SERVER="serwer_fifo"
+
+# Tworzenie potoku, jeśli jeszcze nie istnieje
+if [ ! -p "$FIFO_SERVER" ]; then
+    mkfifo "$FIFO_SERVER"
+fi
+
+echo "Serwer nasłuchuje na potoku: $FIFO_SERVER..."
+
+while true; do
+    # Odczytanie danych od klienta: słowa i ścieżki do jego FIFO
+    read dane < "$FIFO_SERVER"
+    
+    # Rozdzielenie słowa i ścieżki klienta
+    słowo=$(echo "$dane" | awk '{print $1}')
+    ścieżka_klienta=$(echo "$dane" | awk '{print $2}')
+    
+    # Obliczenie liczby samogłosek
+    liczba_samoglosek=$(echo "$słowo" | grep -o -i '[aeiouy]' | wc -l)
+    
+    # Wysłanie liczby samogłosek do FIFO klienta
+    echo "$liczba_samoglosek" > "$ścieżka_klienta"
+done
+
+Drugi skrypt powinien pełnić rolę "klienta", który pobiera napis od użytkownika, tworzy (swój) plik FIFO oraz wysyła do serwera 
+informacje na temat odczytanego słowa i ścieżki swojego potoku nazwanego. Następnie czeka na odpowiedź serwera i wyświetla komunikat 
+odnośnie tego ile samogłosek zawiera pobrany napis, usunie utworzony plik FIFO i zakończy działanie.
+Klient (klient.sh)
+
+#!/bin/bash
+
+# Utworzenie lokalnego potoku (FIFO) dla klienta
+FIFO_CLIENT="klient_fifo"
+
+# Tworzenie potoku
+mkfifo "$FIFO_CLIENT"
+
+# Pobranie słowa od użytkownika
+read -p "Podaj słowo do analizy: " słowo
+
+# Utworzenie ścieżki do serwera FIFO
+FIFO_SERVER="serwer_fifo"
+
+# Wysłanie danych do serwera: słowo i ścieżka klienta
+echo "$słowo $FIFO_CLIENT" > "$FIFO_SERVER"
+
+# Oczekiwanie na odpowiedź od serwera
+echo "Oczekiwanie na odpowiedź serwera..."
+cat "$FIFO_CLIENT"
+
+# Usunięcie lokalnego FIFO
+rm "$FIFO_CLIENT"
+
+
+
+1. Uruchomienie serwera:
+Najpierw uruchom serwer w jednym terminalu:
+chmod +x serwer.sh
+./serwer.sh
+
+2. Uruchomienie klienta:
+Następnie otwórz drugi terminal i uruchom klienta:
+chmod +x klient.sh
+./klient.sh

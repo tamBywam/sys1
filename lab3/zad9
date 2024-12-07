@@ -1,0 +1,45 @@
+#Zadanie 9. Zapoznaj się z możliwościami typów zmiennych, np.
+#przypisz dowolną wartość typu napisowego do zmiennych o nazwie napis1 oraz napis2 oraz do zmiennej o nazwie napisy przypisz konkatenacje wartości zmiennych tych dwóch zmiennych.
+napis1="Ala"
+napis2="ma kota"
+napisy="$napis1 $napis2"
+echo $napisy
+Efekt:
+Ala ma kota
+
+#wyświetl jaka jest długość wartości zmiennej napisy.
+echo ${#napisy}
+
+#wyświetl wartość zmiennej napisy od 3-go znaku indeksowanego od 0.
+echo ${napisy:3}
+
+#wyświetl wartość zmiennej zmienna od 3-go do 7-go znaku indeksowanego od 0.
+echo ${napisy:3:5}
+
+#przypisz dowolną wartość typu całkowitego do zmiennych o nazwie liczba1 i liczba2 oraz przypisz im dowolne wartości.
+liczba1=10
+liczba2=3
+
+#stwórz zmienne typu całkowitego o nazwach suma, roznica, iloczyn, iloraz oraz przypisz im wartości operując na zmiennych liczba1 i liczba2.
+suma=$((liczba1 + liczba2))
+roznica=$((liczba1 - liczba2))
+iloczyn=$((liczba1 * liczba2))
+iloraz=$((liczba1 / liczba2))
+echo "Suma: $suma, Różnica: $roznica, Iloczyn: $iloczyn, Iloraz: $iloraz"
+
+#stwórz zmienną typu tablicowego o nazwie tablica przechowującą i przypisz jej dowolne wartości.
+tablica=("jabłko" "banan" "gruszka" "śliwka")
+
+#wyświetl 2-gi element wartość zmiennej tablica indeksowanej od 0.
+echo ${tablica[1]}
+
+#wyświetl informacje ile elementów zawiera zmienna tablica.
+echo ${#tablica[@]}
+
+#stwórz zmienne przechowujące liczby w różnych systemach liczbowych, wykonaj na nich operacje arytmetyczne i wyświetl wynik.
+dziesietny=10        # Liczba dziesiętna
+szesnastkowy=$((0xA)) # Liczba szesnastkowa (0xA = 10)
+osemkowy=$((010))    # Liczba ósemkowa (010 = 8)
+b) Operacje arytmetyczne:
+wynik=$((dziesietny + szesnastkowy + osemkowy))
+echo $wynik

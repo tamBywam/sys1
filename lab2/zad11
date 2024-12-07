@@ -1,0 +1,12 @@
+#Zadanie 11. Wyświetl posortowane wiersze z pliku /etc/passwd, przy użyciu:
+
+#podstawowego polecenia.
+sort /etc/passwd
+
+#przekierowania strumienia.
+cat /etc/passwd > temp.txt && sort temp.txt
+#lub
+sort < /etc/passwd
+
+#potoku.
+cat /etc/passwd | sort

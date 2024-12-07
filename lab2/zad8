@@ -1,0 +1,7 @@
+#Zadanie 8. Wykorzystując przekierowania zapisz do pliku blad.txt informację o błędzie wywołanym poprzez wykonanie polecenia ./echo "blad!!!"
+
+./echo "blad!!!" 2> blad.txt
+
+#./echo "blad!!!": Próba uruchomienia programu echo z bieżącego katalogu. Ponieważ w katalogu prawdopodobnie nie ma pliku wykonywalnego echo, polecenie zakończy się błędem.
+#2>: Operator przekierowuje standardowe wyjście błędów (stderr) do pliku. Numer 2 odnosi się do kanału błędów w systemie.
+#blad.txt: Nazwa pliku, do którego zostanie zapisany komunikat o błędzie.

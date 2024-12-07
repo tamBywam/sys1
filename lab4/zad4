@@ -1,0 +1,23 @@
+Zadanie 4. Napisz skrypt, który utworzy katalog, nazwany dzisiejszą datą, a następnie przekopiuje do niego wszystkie utworzone dziś pliki, znajdujące się w Twoim katalogu domowym.
+
+#!/bin/bash
+
+# Pobranie dzisiejszej daty w formacie YYYY-MM-DD
+data=$(date +%F)
+
+# Utworzenie katalogu o nazwie dzisiejszej daty
+mkdir -p "$HOME/$data"
+
+# Wyszukanie plików utworzonych dzisiaj w katalogu domowym i skopiowanie ich do nowego katalogu
+find "$HOME" -maxdepth 1 -type f -daystart -newermt $(date +%Y-%m-%d) -exec cp {} "$HOME/$data/" \;
+
+# Informacja o zakończeniu
+echo "Pliki utworzone dzisiaj zostały skopiowane do katalogu $HOME/$data."
+
+
+Zapisz skrypt do pliku, np. kopiuj_dzisiaj.sh.
+Nadaj mu prawa do wykonania:
+chmod +x kopiuj_dzisiaj.sh
+
+Uruchom skrypt:
+./kopiuj_dzisiaj.sh

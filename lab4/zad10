@@ -1,0 +1,45 @@
+Zadanie 10. Napisz skrypt, który, wyliczy rozmiary wszystkich plików znajdujących się w katalogu, którego ścieżka została podana jako argument, oraz jego podkatalogach.
+Przejście po podkatalogach możesz wykonać rekurencyjnie (np. poprzez ponowne uruchomienie skryptu, albo wywołanie tej samej funkcji we funkcji).
+
+#!/bin/bash
+
+# Funkcja do rekurencyjnego przeszukiwania katalogu
+oblicz_rozmiary() {
+    local katalog=$1
+
+    # Sprawdzenie czy katalog istnieje
+    if [ ! -d "$katalog" ]; then
+        echo "Błąd: Ścieżka '$katalog' nie jest katalogiem lub nie istnieje."
+        exit 1
+    fi
+
+    # Pobranie wszystkich plików w bieżącym katalogu
+    for plik in "$katalog"/*; do
+        if [ -f "$plik" ]; then
+            # Wyświetlenie nazwy pliku oraz jego rozmiaru
+            rozmiar=$(stat --format="%s" "$plik")
+            echo "Plik: $plik | Rozmiar: $rozmiar bajtów"
+        fi
+    done
+
+    # Przeszukanie podkatalogów rekurencyjnie
+    for podkatalog in "$katalog"/*; do
+        if [ -d "$podkatalog" ]; then
+            oblicz_rozmiary "$podkatalog"
+        fi
+    done
+}
+
+# Uruchomienie funkcji z podaną ścieżką jako argument
+if [ -z "$1" ]; then
+    echo "Błąd: Brakuje argumentu. Podaj ścieżkę do katalogu."
+    exit 1
+fi
+
+oblicz_rozmiary "$1"
+
+Nadaj uprawnienia do wykonania:
+chmod +x rozmiary_plikow.sh
+
+Uruchom skrypt z podaną ścieżką jako argument:
+./rozmiary_plikow.sh /sciezka/do/katalogu

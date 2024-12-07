@@ -1,0 +1,37 @@
+#Zadanie 8. Zapoznaj się z możliwościami tworzenia zmiennych, np.
+#utwórz zmienna o nazwie np. test i nadaj jej wartość np. Ala ma kota.
+test="Ala ma kota"
+
+#wyświetl zawartość zmiennej test na ekranie.
+echo $test
+Efekt:
+Ala ma kota
+
+#przypisz nową wartość zmiennej test, np.: Kot ma Ale, następnie wyświetl te zawartość i sprawdź czy została zmieniona.
+test="Kot ma Ale"
+Wyświetl nową wartość zmiennej:
+echo $test
+Efekt:
+Kot ma Ale
+
+#utwórz zmienną, następnie sprawdź czy zmienna istnieje w nowym terminalu.
+nowa="Zmienna lokalna"
+Otwórz nowy terminal i spróbuj wyświetlić wartość zmiennej:
+echo $nowa
+Efekt: Zmienna nie istnieje w nowym terminalu, ponieważ zmienne w Bashu są domyślnie lokalne dla bieżącej sesji.
+
+export globalna="Zmienna globalna"
+W nowym terminalu:
+echo $globalna
+Efekt: Zmienna globalna jest dostępna.
+
+#stwórz zmienną tylko do odczytu z dowolną wartością, sprawdź czy możesz zmienić jej wartość i usunąć zmienną.
+readonly stala="Nie można zmienić"
+Spróbuj zmienić wartość:
+stala="Próba zmiany"
+Efekt:
+bash: stala: readonly variable
+Spróbuj usunąć zmienną:
+unset stala
+Efekt:
+bash: unset: stala: cannot unset: readonly variable

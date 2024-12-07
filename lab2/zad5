@@ -1,0 +1,14 @@
+Zadanie 5. Przetestuj polecenia:
+    cat -n katalogi.txt > katalogi2.txt
+    cat -n katalogi.txt 1> katalogi2.txt
+    cat -n > katalogi2.txt katalogi.txt
+    cat -n 1> katalogi2.txt katalogi.txt
+    cat > katalogi2.txt -n katalogi.txt
+    cat 1> katalogi2.txt -n katalogi.txt
+    > katalogi2.txt cat -n katalogi.txt
+    1> katalogi2.txt cat -n katalogi.txt
+Wyjaśnij jakie są różnice działania pomiędzy nimi.
+
+Polecenia 1 i 2: Działają identycznie, zapisują numerowane linie z pliku katalogi.txt do katalogi2.txt. Różnica polega na tym, że w poleceniu 2 użyte jest jawne przekierowanie 1>, które jest zbędne, ponieważ domyślnie cat przekierowuje na standardowe wyjście (stdout).
+
+Polecenie 3, 4, 5, 6, 7, 8: Błąd składniowy – przekierowanie > powinno być stosowane po pliku wejściowym.

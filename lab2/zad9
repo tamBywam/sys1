@@ -1,0 +1,3 @@
+#Zadanie 9. Wyświetl zawartość dowolnego pliku w taki sposób, aby wszystkie litery były wielkie.
+
+cat nazwapliku | tr 'a-z' 'A-Z'

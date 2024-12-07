@@ -1,0 +1,7 @@
+#Zadanie 6. Korzystając z potoku wyświetl zawartość swojego katalogu domowego wraz z informacją odnośnie uprawnień, właściciela, 
+#rozmiaru itp., w taki sposób aby można było wyświetlać kolejne wiersze z możliwością przejścia w przód i tył.
+
+ls -l ~ | less
+
+#ls -l – Wyświetla szczegółowe informacje o plikach i katalogach, w tym uprawnienia, właściciela, grupę, rozmiar i datę ostatniej modyfikacji.
+#less – Służy do wyświetlania tekstu w sposób umożliwiający przewijanie w przód i tył.

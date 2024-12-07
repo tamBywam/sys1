@@ -1,0 +1,53 @@
+#Zadanie 7. Przejrzyj oraz postaraj się odgadnąć, jakie wartości zawierają zmienne środowiskowe:
+
+$HOME,
+Znaczenie: Ścieżka do katalogu domowego bieżącego użytkownika.
+Przykładowa wartość:
+/home/uzytkownik
+
+$LANG,
+Znaczenie: Ustawienia języka i lokalizacji systemu.
+Przykładowa wartość:
+pl_PL.UTF-8
+pl_PL oznacza język polski.
+UTF-8 wskazuje na użycie kodowania znaków Unicode.
+
+$PATH,
+Znaczenie: Lista katalogów przeszukiwanych w celu znalezienia wykonywalnych plików poleceń.
+Przykładowa wartość:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Katalogi są oddzielone dwukropkiem :.
+System szuka poleceń w tej kolejności.
+
+$PWD,
+Znaczenie: Ścieżka do bieżącego katalogu roboczego.
+Przykładowa wartość:
+/home/uzytkownik/projekty
+
+$SHELL,
+Znaczenie: Ścieżka do interpretera powłoki, którego używa użytkownik.
+Przykładowa wartość:
+/bin/bash
+Może to być też np. /bin/zsh, /bin/dash, itp.
+
+
+$TERM,
+Znaczenie: Typ terminala, którego używa użytkownik (definiuje, jakie funkcje terminal obsługuje).
+Przykładowa wartość:
+xterm-256color
+xterm-256color oznacza terminal obsługujący 256 kolorów.
+
+
+$USER.
+Znaczenie: Nazwa bieżącego użytkownika.
+Przykładowa wartość:
+uzytkownik
+
+Sprawdzenie wartości zmiennych w systemie:
+echo $HOME
+echo $LANG
+echo $PATH
+echo $PWD
+echo $SHELL
+echo $TERM
+echo $USER

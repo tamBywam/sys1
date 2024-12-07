@@ -1,0 +1,55 @@
+Zadanie 7. Napisz skrypt, który jako argument pobierze ścieżkę do pliku. Następnie, jeżeli plik ma rozszerzenie *.txt otworzy go w dowolnym edytorze tekstu, 
+jeżeli ma rozszerzenie *.sh uruchomi skrypt, w przeciwnym razie wyświetli odpowiedni komunikat informujący, że plik jest nieznany. 
+Jeżeli żaden argument nie zostanie pobrany, powinien zostać wyświetlony komunikat informujący, że brakuje argumentu.
+
+#!/bin/bash
+
+# Sprawdzenie, czy został przekazany argument
+if [ $# -eq 0 ]; then
+  echo "Brakuje argumentu! Podaj ścieżkę do pliku jako argument."
+  exit 1
+fi
+
+# Pobranie ścieżki do pliku
+sciezka="$1"
+
+# Sprawdzenie, czy plik istnieje
+if [ ! -f "$sciezka" ]; then
+  echo "Plik nie istnieje: $sciezka"
+  exit 1
+fi
+
+# Pobranie rozszerzenia pliku
+rozszerzenie="${sciezka##*.}"
+
+# Sprawdzenie warunków
+case "$rozszerzenie" in
+  txt)
+    # Otwórz plik w domyślnym edytorze tekstu (np. nano, vim, vi, itp.)
+    echo "Otwieranie pliku *.txt w edytorze tekstu..."
+    nano "$sciezka"
+    ;;
+  sh)
+    # Uruchom skrypt
+    echo "Uruchamianie skryptu *.sh..."
+    bash "$sciezka"
+    ;;
+  *)
+    # Nieznane rozszerzenie
+    echo "Nieznane rozszerzenie pliku: $rozszerzenie"
+    ;;
+esac
+
+Zapisz skrypt do pliku, np. sprawdz_plik.sh.
+Nadaj mu prawa do wykonania:
+chmod +x sprawdz_plik.sh
+
+Uruchom skrypt z odpowiednim argumentem (ścieżką do pliku):
+Aby otworzyć plik .txt:
+./sprawdz_plik.sh sciezka/do/pliku.txt
+
+Aby uruchomić skrypt .sh:
+./sprawdz_plik.sh sciezka/do/skrypt.sh
+
+Dla pliku z nieznanym rozszerzeniem:
+./sprawdz_plik.sh sciezka/do/plik.xyz

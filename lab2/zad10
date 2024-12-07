@@ -1,0 +1,4 @@
+#Zadanie 10. Korzystając z potoku wyświetl wszystkie pliki i foldery w bieżącym katalogu w jednej linii oddzielone przecinkiem.
+#Podpowiedź: Znak nowej linii jest oznaczony poprzez: "\n".
+
+ls | tr '\n' ','

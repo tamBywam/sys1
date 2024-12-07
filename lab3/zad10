@@ -1,0 +1,31 @@
+Zadanie 10. Stwórz dowolną zmienną środowiskową, następnie wyłącz i włącz system oraz sprawdź czy zmienna dalej istnieje. Następnie zastanów się co zrobić, aby zmienna została zainicjalizowana po włączeniu systemu.
+Podpowiedź: Sprawdź zawartość pliku: ~/.bashrc i go odpowiednio zmodyfikuj.
+
+1. Tworzenie zmiennej środowiskowej
+export MOJA_ZMIENNA="Wartość zmiennej"
+Sprawdź, czy zmienna została poprawnie ustawiona:
+echo $MOJA_ZMIENNA
+
+2. Restart systemu i sprawdzenie zmiennej
+Po restarcie systemu zmienne środowiskowe ustawione w bieżącej sesji zostaną utracone, ponieważ są one lokalne tylko dla aktualnej sesji terminala. Sprawdź po restarcie, czy zmienna nadal istnieje:
+echo $MOJA_ZMIENNA
+
+3. Trwałe ustawienie zmiennej środowiskowej
+Aby zmienna była dostępna po każdym restarcie systemu, należy dodać ją do odpowiedniego pliku konfiguracyjnego, który jest wczytywany przy starcie systemu.
+W przypadku terminala Bash, zmienne środowiskowe można dodać do pliku ~/.bashrc, który jest ładowany przy każdym uruchomieniu nowego terminala.
+
+a) Edytowanie pliku ~/.bashrc:
+Otwórz plik .bashrc w edytorze tekstu:
+nano ~/.bashrc
+
+b) Dodanie zmiennej do pliku:
+Na końcu pliku dodaj linię, która ustawia zmienną:
+export MOJA_ZMIENNA="Wartość zmiennej"
+Zapisz plik i wyjdź (w edytorze nano użyj Ctrl + O, aby zapisać, a następnie Ctrl + X, aby wyjść).
+
+c) Zastosowanie zmian:
+Aby zmiany w pliku .bashrc zaczęły obowiązywać w bieżącej sesji, wykonaj polecenie:
+source ~/.bashrc
+
+Sprawdź, czy zmienna została poprawnie ustawiona:
+echo $MOJA_ZMIENNA

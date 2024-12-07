@@ -1,0 +1,30 @@
+#Zadanie 1. Korzystając z odpowiednich poleceń znajdź w systemie plików, plik specjalny swojego terminala.
+tty
+
+#Sprawdź:
+#jakiego rodzaju jest plik terminala i jakie ma prawa dostępu (ls -l).
+ls -l $(tty)
+
+#czy jest możliwe usunięcie swojego pliku swojego terminala.
+rm $(tty)
+
+#co się stanie, gdy przekierujesz wyjście/błąd do swojego pliku terminala ze swojego terminala.
+#wyjscie
+echo "Test wyjścia" > $(tty)
+#błąd
+ls /nieistniejacyplik 2> $(tty)
+
+#co się stanie, gdy przekierujesz wyjście/błąd do swojego pliku terminala z innego terminala.
+echo "Wiadomość z innego terminala" > /dev/pts/0
+
+#co się stanie, gdy przekierujesz wyjście polecenia cat pliku terminala do innego terminala.
+cat $(tty) > /dev/pts/1
+
+#co się stanie, gdy przekierujesz wejście z pliku terminala do polecenia cat (w celu zakończenia działania przydatny może być ctrl+c).
+cat < $(tty)
+
+#Stosując odpowiednie polecenie wypróbuj możliwość pisania na kilku terminalach jednocześnie.
+write użytkownik /dev/pts/1
+
+#Możesz spróbować zmienić ustawienia terminala (pamiętaj, że domyślne ustawienia przywraca polecenie: stty sane ).
+stty -echo

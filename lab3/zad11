@@ -1,0 +1,30 @@
+#Zadanie 11. Zapoznaj się z możliwością tworzenia aliasów tak, aby działały nawet po ponownym uruchomieniu terminala.
+#Możesz utworzyć przykładowo alias search dla polecenia grep -rn.
+#Podpowiedź: Sprawdź zawartość pliku: ~/.bashrc i go odpowiednio zmodyfikuj.
+
+1. Tworzenie aliasu w bieżącej sesji
+alias search='grep -rn'
+
+Sprawdź, czy alias działa poprawnie:
+search "tekst" /ścieżka/do/pliku
+
+2. Tworzenie aliasu, który działa po restarcie
+Aby alias był dostępny po ponownym uruchomieniu terminala, należy dodać go do pliku ~/.bashrc, który jest ładowany przy każdym uruchomieniu terminala.
+
+a) Edytowanie pliku ~/.bashrc
+Otwórz plik .bashrc w edytorze tekstu:
+nano ~/.bashrc
+
+b) Dodanie aliasu do pliku
+Na końcu pliku dodaj linię, która definiuje alias:
+alias search='grep -rn'
+Zapisz plik i wyjdź (w edytorze nano użyj Ctrl + O, aby zapisać, a następnie Ctrl + X, aby wyjść).
+
+c) Zastosowanie zmian
+Aby alias zaczął działać natychmiast, wykonaj polecenie:
+source ~/.bashrc
+
+d) Testowanie aliasu
+Po załadowaniu pliku .bashrc sprawdź, czy alias działa:
+search "tekst" /ścieżka/do/pliku
+Efekt: Alias działa jak polecenie grep -rn.

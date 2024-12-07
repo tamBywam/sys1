@@ -1,0 +1,39 @@
+Zadanie 2. Napisz skrypt, który pobierze dwa napisy jako argument oraz wyświetli informacje, który jest dłuższy i który jest wcześniej leksykograficznie.
+
+#!/bin/bash
+
+# Sprawdzenie, czy zostały podane dwa argumenty
+if [ $# -ne 2 ]; then
+  echo "Błąd: Podaj dokładnie dwa napisy jako argumenty."
+  exit 1
+fi
+
+# Pobranie napisów z argumentów
+napis1=$1
+napis2=$2
+
+# Porównanie długości napisów
+if [ ${#napis1} -gt ${#napis2} ]; then
+  echo "Pierwszy napis '$napis1' jest dłuższy niż drugi napis '$napis2'."
+elif [ ${#napis1} -lt ${#napis2} ]; then
+  echo "Drugi napis '$napis2' jest dłuższy niż pierwszy napis '$napis1'."
+else
+  echo "Oba napisy mają taką samą długość."
+fi
+
+# Porównanie leksykograficzne
+if [ "$napis1" \< "$napis2" ]; then
+  echo "Pierwszy napis '$napis1' jest wcześniej leksykograficznie niż drugi napis '$napis2'."
+elif [ "$napis1" \> "$napis2" ]; then
+  echo "Drugi napis '$napis2' jest wcześniej leksykograficznie niż pierwszy napis '$napis1'."
+else
+  echo "Oba napisy są identyczne leksykograficznie."
+fi
+
+
+Zapisz skrypt do pliku, np. porownaj_napisy.sh.
+Nadaj mu prawa do wykonania:
+chmod +x porownaj_napisy.sh
+
+Uruchom skrypt, przekazując dwa napisy jako argumenty:
+./porownaj_napisy.sh "kot" "pies"

@@ -1,0 +1,31 @@
+Zadanie 1. Napisz skrypt, który wyświetli sumę trzech liczb całkowitych, które zostały pobrane jako argumenty.
+
+#!/bin/bash
+
+# Sprawdzenie, czy zostały podane trzy argumenty
+if [ $# -ne 3 ]; then
+  echo "Błąd: Podaj dokładnie trzy liczby całkowite."
+  exit 1
+fi
+
+# Pobranie liczb z argumentów
+liczba1=$1
+liczba2=$2
+liczba3=$3
+
+# Obliczenie sumy
+suma=$((liczba1 + liczba2 + liczba3))
+
+# Wyświetlenie wyniku
+echo "Suma liczb $liczba1, $liczba2 i $liczba3 wynosi: $suma"
+
+
+Zapisz skrypt do pliku, np. suma.sh.
+Nadaj mu prawa do wykonania:
+chmod +x suma.sh
+
+Uruchom skrypt, przekazując trzy liczby jako argumenty:
+./suma.sh 5 10 15
+
+Wynik:
+Suma liczb 5, 10 i 15 wynosi: 30

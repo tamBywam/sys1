@@ -1,0 +1,25 @@
+Zadanie 9. Napisz skrypt, który wyświetli informacje, odnośnie tego, jaka jest ścieżka do pliku terminala osoby, której login zostanie pobrany jako argument.
+
+#!/bin/bash
+
+# Sprawdzenie czy argument został przekazany
+if [ -z "$1" ]; then
+    echo "Brakuje argumentu - podaj login użytkownika"
+    exit 1
+fi
+
+# Pobranie informacji o ścieżce do terminala użytkownika
+sciezka=$(who | grep "^$1" | awk '{print $2}')
+
+# Sprawdzenie czy użytkownik został znaleziony
+if [ -z "$sciezka" ]; then
+    echo "Nie znaleziono użytkownika $1 lub użytkownik nie jest zalogowany."
+else
+    echo "Ścieżka do terminala użytkownika $1: $sciezka"
+fi
+
+Nadaj uprawnienia do wykonania:
+chmod +x sciezka_terminala.sh
+
+Uruchom skrypt z loginem użytkownika jako argument:
+./sciezka_terminala.sh nazwa_uzytkownika

@@ -1,0 +1,29 @@
+# znajdź wszystkie wersy, które zawierają podsłowo: dawne.
+grep 'dawne' wiersz.txt
+
+# znajdź wszystkie wersy, które zawierają podsłowo: takim, bez rozróżniania wielkości liter.
+grep -i 'takim' wiersz.txt
+
+# znajdź wszystkie wersy, które nie zawierają liczb.
+grep -v '[0-9]' wiersz.txt
+
+# znajdź wszystkie wersy, które zaczynają się od cyfry.
+grep '^[0-9]' wiersz.txt
+
+# znajdź wszystkie słowa, które zawierają dwa znaki o obok siebie (czyli podciąg: oo).
+grep -o '\b\w*oo\w*\b' wiersz.txt
+
+# znajdź wszystkie słowa, takie, że przed znakiem d znajduje się od 2-óch do 4-ech innych dowolnych znaków.
+grep -o '\b\w\{2,4\}d\w*\b' wiersz.txt
+
+# znajdź wszystkie słowa, które zaczynające się na p i kończące na a lub zaczynające się na g i kończące na e.
+grep -o '\b[pP]\w*a\b\|\b[gG]\w*e\b' wiersz.txt
+
+# znajdź wszystkie słowa, które zawierają dokładnie trzy znaki a.
+grep -o '\b\w*a\w*a\w*a\w*\b' wiersz.txt
+
+# policz ile wersów, które zawierają podsłowo/podsłowa zaczynające się na a oraz kończące na o.
+grep -c '\ba\w*o\b' wiersz.txt
+
+# policz ile wersów, które zawierają słowo/słowa zaczynające się na a oraz kończące na o.
+grep -o '\ba\w*o\b' wiersz.txt | wc -l

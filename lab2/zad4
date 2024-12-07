@@ -1,0 +1,23 @@
+#Zadanie 4. Wykorzystując odpowiednie komendy i przekierowania
+#zapisz do pliku katalogi.txt informacje na temat zawartości Twojego katalogu domowego.
+#następnie dopisz do pliku katalogi.txt treść:
+#zawartość katalogu domowego użytkownika:
+#Twój_login
+#Informacje na temat loginu, pobierz wykorzystując odpowiednią komendę.
+#korzystając ze strumienia standardowego wejścia sprawdź ile wierszy, słów i znaków zawiera plik katalogi.txt, oraz zapisz te dane do pliku informacje.txt, tak by wyglądała następująco:
+#liczba wierszy:
+#liczba
+#liczba slow:
+#liczba
+#liczba znakow:
+#liczba
+
+#1. Zapisz informacje o zawartości katalogu domowego do pliku katalogi.txt
+#Zapisz listę zawartości katalogu domowego: Użyj komendy ls do wylistowania plików i katalogów w katalogu domowym i przekieruj wynik do pliku katalogi.txt:
+ls ~ > katalogi.txt
+#2. Dopisz do pliku katalogi.txt treść: zawartość katalogu domowego użytkownika: Twój_login
+echo "zawartość katalogu domowego użytkownika:" >> katalogi.txt
+whoami >> katalogi.txt
+
+#3. Sprawdź ile wierszy, słów i znaków zawiera plik katalogi.txt, oraz zapisz te dane do pliku informacje.txt
+wc katalogi.txt | awk '{print "liczba wierszy:\n" $1 "\nliczba slow:\n" $2 "\nliczba znakow:\n" $3}' > informacje.txt
